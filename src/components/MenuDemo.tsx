@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Minus, ShoppingCart, Star } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 interface MenuItem {
   id: number;
@@ -67,10 +68,18 @@ const MenuDemo = () => {
     : menuItems.filter(item => item.categoria === categoriaAtiva);
     
   const adicionarAoCarrinho = (itemId: number) => {
+    const item = menuItems.find(i => i.id === itemId);
     setCarrinho(prev => ({
       ...prev,
       [itemId]: (prev[itemId] || 0) + 1
     }));
+    
+    if (item) {
+      toast({
+        title: "🍽️ Item adicionado!",
+        description: `${item.nome} foi adicionado ao carrinho`,
+      });
+    }
   };
   
   const removerDoCarrinho = (itemId: number) => {
@@ -192,7 +201,17 @@ const MenuDemo = () => {
               R$ {totalPreco.toFixed(2).replace('.', ',')}
             </span>
           </div>
-          <Button className="w-full" variant="primary">
+          <Button 
+            className="w-full" 
+            variant="primary" 
+            onClick={() => {
+              toast({
+                title: "🎉 Pedido realizado!",
+                description: `Pedido de R$ ${totalPreco.toFixed(2).replace('.', ',')} enviado para a cozinha. Mesa 5.`,
+              });
+              setCarrinho({});
+            }}
+          >
             Fazer Pedido
           </Button>
         </div>

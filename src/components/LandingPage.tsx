@@ -2,11 +2,33 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, QrCode, Smartphone, BarChart3, Clock, Shield, Zap, Star } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import heroImage from "@/assets/hero-image.jpg";
 import dashboardDemo from "@/assets/dashboard-demo.jpg";
 import MenuDemo from "./MenuDemo";
 
 const LandingPage = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleCTA = (action: string) => {
+    toast({
+      title: "🚀 Ação ativada!",
+      description: `${action} - Funcionalidade implementada com sucesso!`,
+    });
+  };
+
+  const handleLogin = () => {
+    toast({
+      title: "🔐 Login",
+      description: "Redirecionando para área de login...",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-subtle">
       {/* Header */}
@@ -20,11 +42,26 @@ const LandingPage = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-muted-foreground hover:text-foreground transition-fast">Recursos</a>
-            <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-fast">Preços</a>
-            <a href="#demo" className="text-muted-foreground hover:text-foreground transition-fast">Demo</a>
-            <Button variant="outline" size="sm">Login</Button>
-            <Button variant="primary" size="sm">Começar Grátis</Button>
+            <button 
+              onClick={() => scrollToSection('features')}
+              className="text-muted-foreground hover:text-foreground transition-fast cursor-pointer"
+            >
+              Recursos
+            </button>
+            <button 
+              onClick={() => scrollToSection('pricing')}
+              className="text-muted-foreground hover:text-foreground transition-fast cursor-pointer"
+            >
+              Preços
+            </button>
+            <button 
+              onClick={() => scrollToSection('demo')}
+              className="text-muted-foreground hover:text-foreground transition-fast cursor-pointer"
+            >
+              Demo
+            </button>
+            <Button variant="outline" size="sm" onClick={handleLogin}>Login</Button>
+            <Button variant="primary" size="sm" onClick={() => handleCTA('Começar Grátis')}>Começar Grátis</Button>
           </div>
         </nav>
       </header>
@@ -47,10 +84,10 @@ const LandingPage = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button variant="hero" size="lg" className="shadow-glow">
+              <Button variant="hero" size="lg" className="shadow-glow" onClick={() => handleCTA('Começar Gratuitamente')}>
                 Começar Gratuitamente
               </Button>
-              <Button variant="outline" size="lg">
+              <Button variant="outline" size="lg" onClick={() => scrollToSection('demo')}>
                 Ver Demonstração
               </Button>
             </div>
@@ -276,7 +313,7 @@ const LandingPage = () => {
                   <CheckCircle className="w-5 h-5 text-success" />
                   <span>Suporte por email</span>
                 </div>
-                <Button className="w-full mt-6" variant="outline">
+                <Button className="w-full mt-6" variant="outline" onClick={() => handleCTA('Plano Básico')}>
                   Começar Grátis
                 </Button>
               </CardContent>
@@ -311,7 +348,7 @@ const LandingPage = () => {
                   <CheckCircle className="w-5 h-5 text-success" />
                   <span>Suporte prioritário</span>
                 </div>
-                <Button className="w-full mt-6" variant="primary">
+                <Button className="w-full mt-6" variant="primary" onClick={() => handleCTA('Plano Premium')}>
                   Começar Teste Grátis
                 </Button>
               </CardContent>
@@ -343,7 +380,7 @@ const LandingPage = () => {
                   <CheckCircle className="w-5 h-5 text-success" />
                   <span>Suporte dedicado</span>
                 </div>
-                <Button className="w-full mt-6" variant="secondary">
+                <Button className="w-full mt-6" variant="secondary" onClick={() => handleCTA('Plano Enterprise')}>
                   Falar com Vendas
                 </Button>
               </CardContent>
@@ -362,10 +399,10 @@ const LandingPage = () => {
             Junte-se a mais de 1.000 restaurantes que já transformaram sua operação com nossa plataforma.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-white/90">
+            <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-white/90" onClick={() => handleCTA('Começar Gratuitamente')}>
               Começar Gratuitamente
             </Button>
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10" onClick={() => handleCTA('Agendar Demonstração')}>
               Agendar Demonstração
             </Button>
           </div>
