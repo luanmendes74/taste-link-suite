@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,8 @@ import dashboardDemo from "@/assets/dashboard-demo.jpg";
 import MenuDemo from "./MenuDemo";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+  
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -16,17 +19,11 @@ const LandingPage = () => {
   };
 
   const handleCTA = (action: string) => {
-    toast({
-      title: "🚀 Ação ativada!",
-      description: `${action} - Funcionalidade implementada com sucesso!`,
-    });
+    navigate("/auth");
   };
 
   const handleLogin = () => {
-    toast({
-      title: "🔐 Login",
-      description: "Redirecionando para área de login...",
-    });
+    navigate("/auth");
   };
 
   return (
